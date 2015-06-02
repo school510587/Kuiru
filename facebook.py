@@ -1,4 +1,5 @@
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 
 browser = webdriver.Firefox()
 
@@ -13,5 +14,7 @@ def login():
 
 	print "Successfully login the Facebook!"
 
-login()
+def webpage_goto_end():
+	browser.find_element_by_id("mainContainer").send_keys(Keys.END)
 
+login()
