@@ -1,9 +1,10 @@
 import sys
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from bs4 import BeautifulSoup
+
 
 browser = webdriver.Firefox()
-
 
 def login():
 	email = raw_input("Facebook email:");
@@ -21,8 +22,12 @@ def webpage_goto_end():
 
 def show_friend_list():
 	browser.get("https://www.facebook.com/friends")
+	web_parser = BeautifulSoup(browser.page_source)
 
 	print "Friend list mode(press n to refresh the list)"
+
+	for unparsed_data in web_parser.findAll("div", {'class': 'fsl fwb fcb'}):
+		print unparsed_data.a.get_text()
 
 	key = 0
 	while(key != "q"):
