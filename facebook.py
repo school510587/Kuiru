@@ -6,7 +6,8 @@ from bs4 import BeautifulSoup
 
 browser = webdriver.Firefox()
 
-friend_list = []
+friend_list = {'friend_name':[], 'friend_link':[]}
+
 
 def login():
 	email = raw_input("Facebook email:");
@@ -32,8 +33,10 @@ def friend_list_mode():
 
 	i = 0
 	for unparsed_data in web_parser.findAll("div", {'class': 'fsl fwb fcb'}):
-		friend_list.append(unparsed_data.a.get_text())
-		print '%d-%s' %(i, friend_list[i])
+		friend_list['friend_name'].append(unparsed_data.a.get_text())
+		friend_list['friend_link'].append(unparsed_data.a.get('href'))
+	
+		print '%d-%s-%s' %(i, friend_list['friend_name'][i], friend_list['friend_link'][i])
 		
 		i += 1
 
@@ -50,9 +53,11 @@ def friend_list_mode():
 
 			i = 0
 			for unparsed_data in web_parser.findAll("div", {'class': 'fsl fwb fcb'}):
-				if i >= len(friend_list):
-					friend_list.append(unparsed_data.a.get_text())
-					print '%d-%s' %(i, friend_list[i])
+				if i >= len(friend_list['friend_name']):
+					friend_list['friend_name'].append(unparsed_data.a.get_text())
+					friend_list['friend_link'].append(unparsed_data.a.get("href"))
+	
+					print '%d-%s-%s' %(i, friend_list['friend_name'][i], friend_list['friend_link'][i])
 				i += 1
 		
 
