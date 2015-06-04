@@ -61,6 +61,15 @@ def friend_list_mode():
 				i += 1
 		
 
+def chat_mode():
+	friend_index = 0
+	#Play some tricks with the profile link address
+	chatroom_address = \
+		friend_list['friend_link'][friend_index].replace('&fref=pb&hc_location=friends_tab', '')
+	chatroom_address = chatroom_address.replace('https://www.facebook.com/profile.php?id=', 'https://www.facebook.com/messages/')
+
+	browser.get(chatroom_address)
+
 def quit_mode():
 	key = raw_input("Confirm to exit the program (Y/N)")
 
@@ -80,7 +89,9 @@ def main():
 	while(True):
 		key = read_key()
 
-		if key == 'f':
+		if key == 'c':
+			chat_mode() #Chat mode
+		elif key == 'f':
 			friend_list_mode() #Friend list mode
 		elif key == "h":
 			pass #Help mode
