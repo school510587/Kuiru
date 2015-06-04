@@ -6,6 +6,8 @@ from bs4 import BeautifulSoup
 
 browser = webdriver.Firefox()
 
+friend_list = []
+
 def login():
 	email = raw_input("Facebook email:");
 	password = raw_input("Facebook password:")
@@ -20,14 +22,22 @@ def login():
 def webpage_goto_end():
 	browser.find_element_by_id("mainContainer").send_keys(Keys.END)
 
-def show_friend_list():
+def friend_list_mode():
 	browser.get("https://www.facebook.com/friends")
 	web_parser = BeautifulSoup(browser.page_source)
 
 	print "Friend list mode(press n to refresh the list)"
 
+	global friend_list_count
+
+	i = 0
 	for unparsed_data in web_parser.findAll("div", {'class': 'fsl fwb fcb'}):
-		print unparsed_data.a.get_text()
+		friend_list.append(unparsed_data.a.get_text())
+		print '%d-%s' %(i, friend_list[i])
+		
+		i += 1
+
+	webpage_goto_end()
 
 	key = 0
 	while(key != "q"):
@@ -35,6 +45,16 @@ def show_friend_list():
 
 		if key == "n":
 			webpage_goto_end()
+
+			web_parser = BeautifulSoup(browser.page_source)
+
+			i = 0
+			for unparsed_data in web_parser.findAll("div", {'class': 'fsl fwb fcb'}):
+				if i >= len(friend_list):
+					friend_list.append(unparsed_data.a.get_text())
+					print '%d-%s' %(i, friend_list[i])
+				i += 1
+		
 
 def quit_mode():
 	key = raw_input("Confirm to exit the program (Y/N)")
@@ -56,7 +76,7 @@ def main():
 		key = read_key()
 
 		if key == 'f':
-			show_friend_list() #Friend list mode
+			friend_list_mode() #Friend list mode
 		elif key == "h":
 			pass #Help mode
 		elif key == "q":
