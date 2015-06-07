@@ -71,6 +71,9 @@ def chat_mode():
 
 	browser.get(chatroom_address)
 
+	browser.find_element_by_name("message_body").send_keys("message")
+
+
 def quit_mode():
 	key = raw_input("Confirm to exit the program (Y/N)")
 
