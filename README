@@ -1,3 +1,5 @@
-###Installation
-sudo pip install -U selenium
-sud pip install beautifulsoup4
+## Required Python Packages ##
+
+This project depends on the following python packages.
++ selenium: sudo pip3 install -U selenium
++ BeautifulSoup: sudo pip3 install beautifulsoup4
