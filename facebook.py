@@ -1,3 +1,4 @@
+from __future__ import print_function
 import sys
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -18,7 +19,7 @@ def login():
 	browser.find_element_by_id("pass").send_keys(password)
 	browser.find_element_by_id("loginbutton").click()
 
-	print "Successfully login the Facebook!"
+	print("Successfully login the Facebook!")
 
 def webpage_goto_end():
 	browser.find_element_by_id("mainContainer").send_keys(Keys.END)
@@ -27,7 +28,7 @@ def friend_list_mode():
 	browser.get("https://www.facebook.com/friends")
 	web_parser = BeautifulSoup(browser.page_source)
 
-	print "Friend list mode(press n to refresh the list)"
+	print("Friend list mode(press n to refresh the list)")
 
 	global friend_list_count
 
@@ -36,7 +37,7 @@ def friend_list_mode():
 		friend_list['friend_name'].append(unparsed_data.a.get_text())
 		friend_list['friend_link'].append(unparsed_data.a.get('href'))
 	
-		print '%d-%s-%s' %(i, friend_list['friend_name'][i], friend_list['friend_link'][i])
+		print('%d-%s-%s' %(i, friend_list['friend_name'][i], friend_list['friend_link'][i]))
 		
 		i += 1
 
@@ -57,7 +58,7 @@ def friend_list_mode():
 					friend_list['friend_name'].append(unparsed_data.a.get_text())
 					friend_list['friend_link'].append(unparsed_data.a.get("href"))
 	
-					print '%d-%s-%s' %(i, friend_list['friend_name'][i], friend_list['friend_link'][i])
+					print('%d-%s-%s' %(i, friend_list['friend_name'][i], friend_list['friend_link'][i]))
 				i += 1
 		
 
@@ -67,7 +68,7 @@ def chat_mode():
 	chatroom_address = friend_list['friend_link'][friend_index].replace('?fref=pb&hc_location=friends_tab', '')
 	chatroom_address = chatroom_address.replace('https://www.facebook.com/', 'https://www.facebook.com/messages/')
 
-	#print chatroom_address
+	#print(chatroom_address)
 
 	browser.get(chatroom_address)
 
