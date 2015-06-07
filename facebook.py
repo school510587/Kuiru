@@ -64,9 +64,10 @@ def friend_list_mode():
 def chat_mode():
 	friend_index = 0
 	#Play some tricks with the profile link address
-	chatroom_address = \
-		friend_list['friend_link'][friend_index].replace('&fref=pb&hc_location=friends_tab', '')
-	chatroom_address = chatroom_address.replace('https://www.facebook.com/profile.php?id=', 'https://www.facebook.com/messages/')
+	chatroom_address = friend_list['friend_link'][friend_index].replace('?fref=pb&hc_location=friends_tab', '')
+	chatroom_address = chatroom_address.replace('https://www.facebook.com/', 'https://www.facebook.com/messages/')
+
+	#print chatroom_address
 
 	browser.get(chatroom_address)
 
